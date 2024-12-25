@@ -1,0 +1,71 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.4'
+	id 'io.spring.dependency-management' version '1.1.4'
+//	id("io.swagger.core.v3.swagger-gradle-plugin") version "2.2.27"
+}
+
+group = 'com.datn'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(19)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Spring Boot dependencies
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Cloudinary for image upload
+	implementation 'com.cloudinary:cloudinary-http44:1.37.0'
+
+	// Apache Commons utilities
+	implementation 'org.apache.commons:commons-csv:1.11.0'
+	implementation 'org.apache.commons:commons-lang3:3.13.0'
+	implementation 'commons-io:commons-io:2.15.0'
+
+	// Apache POI for Excel processing
+	implementation 'org.apache.poi:poi:5.3.0'
+	implementation 'org.apache.poi:poi-ooxml:5.3.0'
+
+	// MapStruct for object mapping
+	implementation 'org.mapstruct:mapstruct:1.6.3'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+
+	// Spring docs
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+	implementation 'io.swagger.core.v3:swagger-annotations:2.2.27'
+
+//	// Swagger Codegen for API documentation
+//	implementation 'io.swagger.codegen.v3:swagger-codegen-maven-plugin:3.0.65'
+
+	// Lombok for reducing boilerplate code
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// Microsoft SQL Server JDBC driver
+	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+
+	// Testing dependencies
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
